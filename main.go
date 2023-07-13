@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
 
 func human(name string, age int) string {
 	// age는 int 타입이므로 문자열과 덧붙이기 위해서는 문자열로 변환
@@ -14,5 +18,14 @@ func main() {
 
 	result := human("Alice", 25)
 	fmt.Println(result)
+
+	//gin.SetMode(gin.ReleaseMode) 릴리즈 모드 활성화 하고 싶으면 주석 해제
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": result,
+		})
+	})
+	r.Run(":3000") // port
 
 }
