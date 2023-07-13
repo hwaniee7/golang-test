@@ -17,7 +17,9 @@ WORKDIR /dist
 
 RUN cp /build/main .
 
-FROM scratch
+FROM alpine:latest
+
+RUN apk update && apk add --no-cache bash
 
 COPY --from=builder /dist/main .
 
