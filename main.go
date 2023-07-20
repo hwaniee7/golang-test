@@ -2,9 +2,13 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/gin-gonic/gin"
 )
+
+type T struct {
+	name  string
+	value int
+}
 
 func human(name string, age int) string {
 	// age는 int 타입이므로 문자열과 덧붙이기 위해서는 문자열로 변환
@@ -19,11 +23,18 @@ func main() {
 	result := human("Alice", 25)
 	fmt.Println(result)
 
+	strArray := [...]string{"Kim", "Lee", "Park"}
+
+	for _, str := range strArray {
+		fmt.Println(str)
+	}
+
 	//gin.SetMode(gin.ReleaseMode) 릴리즈 모드 활성화 하고 싶으면 주석 해제
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
+	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": result,
+			"array":   strArray,
 		})
 	})
 	r.Run(":3000") // port
